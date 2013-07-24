@@ -15,9 +15,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangoevents',
-        'USER': 'djangoevents',
-        'PASSWORD': 'django123',
-        'HOST': 'djangoevents.ckxrwotvocln.us-east-1.rds.amazonaws.com',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': 3306,
     }
 }
@@ -136,10 +136,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-TWITTER_CONSUMER_KEY = 'ewnnyEoKC5g75ZvI21cX7Q'
-TWITTER_CONSUMER_SECRET = 'MTvh7nSubI9bwx6T8OiyBBdJTN94R05I8r4yceQ9Lw'
-FACEBOOK_APP_ID = '429661437071566'
-FACEBOOK_API_SECRET = '0b41874b7a4693b946a6d635ea831bea'
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+FACEBOOK_APP_ID = ''
+FACEBOOK_API_SECRET = ''
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 
@@ -206,8 +206,8 @@ EMAIL_HOST_PASSWORD = 'suasenha'
 EMAIL_PORT = 587
 
 # Amazon
-AWS_ACCESS_KEY_ID = 'AKIAITDOECLM6SK3E2QA'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME = 'djangoevents'
 AWS_HEADERS = {
     'x-amz-acl': 'public-read',
