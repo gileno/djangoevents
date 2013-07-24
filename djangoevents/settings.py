@@ -18,7 +18,7 @@ DATABASES = {
         'USER': 'djangoevents',
         'PASSWORD': 'django123',
         'HOST': 'djangoevents.ckxrwotvocln.us-east-1.rds.amazonaws.com',
-        'PORT': '',
+        'PORT': 3306,
     }
 }
 
