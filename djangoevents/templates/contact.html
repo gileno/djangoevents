@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block nav_contact %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>Fale Conosco</h1>
+</div>
+<div class="row">
+    <div class="span6">
+        {% if success %}
+        <div class="alert alert-success">
+            Mensagem de contato enviada com sucesso.
+        </div>
+        {% else %}
+        <form action="" method="post" class="well">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="help-block">
+                            {{ field.errors|join:", " }}
+                        </span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="control-group">
+                <button type="submit" class="btn">Enviar</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+    <div class="span6">
+        E-mail: <a href="mailto:gascf.cin@gmail.com">gascf.cin@gmail.com</a>
+        <p>
+            Django Events, projeto criado no curso de Django do PyCursos
+        </p>
+    </div>
+</div>
+{% endblock %}

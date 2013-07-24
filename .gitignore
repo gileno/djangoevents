@@ -1,0 +1,5 @@
+djangoevents.db
+build
+venv
+*.pyc
+djangoevents/settings_local.py

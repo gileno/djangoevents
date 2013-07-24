@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load paginator_tags %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>Eventos 
+        <small>
+            {% if search %}
+                pesquisa com a palavra: "{{ search }}"
+            {% else %}
+                listagem de eventos
+            {% endif %}
+        </small>
+    </h1>
+</div>
+{% for ev in page_obj.object_list %}
+    <div>
+        <h2><a href="{{ ev.get_absolute_url }}">{{ ev }}</a></h2>
+        <p>
+            {{ ev.description|truncatewords:"20" }}
+        </p>
+    </div>
+{% empty %}
+    <div class="alert alert-info">
+        <p>
+            Nenhum evento foi encontrado
+        </p>
+    </div>
+{% endfor %}
+
+{% paginate request paginator page_obj %}
+
+{% endblock %}

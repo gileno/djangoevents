@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>{{ event }}</h1>
+</div>
+<h3>Descrição do Evento</h3>
+{{ event.description|linebreaks }}
+<h3>Fotos</h3>
+<ul class="thumbnails">
+    {% for album in event.album_set.all %}
+    <li class="span3">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail">
+            {% if album.primary_photo %}
+            <img src="{{ album.primary_photo.image.url }}" />
+            {% else %}
+            {{ album }}
+            {% endif %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<div class="page-header">
+    <h1>Comentários</h1>
+</div>
+{% for comment in event.comments.all %}
+    <div>
+        <p>{{ comment.name }} disse às {{ comment.created_on }}</p>
+        <p>Facebook: {{ comment.website }}</p>
+        {{ comment.text|linebreaks }}
+    </div>
+    <hr />
+{% empty %}
+    <div class="alert alert-info">
+        Nenhum comentário foi encontrado.
+    </div>
+{% endfor %}
+<div>
+    <form class="form-horizontal" method="post" 
+        action="">
+        {% include "form.html" with form=comment_form %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Comentar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

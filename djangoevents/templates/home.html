@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block nav_home %} class="active"{% endblock %}
+
+{% block container %}
+<div class="hero-unit">
+    <h1>Django Events!</h1>
+    <p>Django Events é uma aplicação feita em Django 1.4, e foi construída durante o curso de Django do PyCursos.</p>
+    <p>Django Events é uma aplicação de criação de Eventos.</p>
+    <p><a href="{% url events %}" class="btn btn-primary btn-large">Veja os Eventos</a></p>
+</div>
+{% endblock %}

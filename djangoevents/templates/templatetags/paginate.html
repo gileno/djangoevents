@@ -1,0 +1,11 @@
+{% if page_obj.object_list %}
+    <div class="pagination">
+        <ul>
+            {% for page in paginator.page_range %}
+            <li{% if page_obj.number == page %} class="active"{% endif %}>
+                <a href="?page={{ page }}{{ getvars }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

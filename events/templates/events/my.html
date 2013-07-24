@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load paginator_tags %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class='page-header'>
+    <h1>Meus Eventos <small>listagem dos meus eventos</small></h1>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Link</th>
+            <th>Público?</th>
+            <th>Data do Evento</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in page_obj.object_list %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.type }}</td>
+            <td>{{ event.link|default:"Não informado" }}</td>
+            <td>{{ event.public|yesno:"público,privado" }}</td>
+            <td>{{ event.event_date|date:"d/m/Y" }}</td>
+            <td>
+                <a href="{% url events_edit event.pk %}">Editar</a><br />
+                <a href="{% url events_albums event.pk %}">Álbuns</a><br />
+                <a href="{% url events_delete event.pk %}">Apagar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">
+                <div class="alert alert-info">
+                    Você não tem eventos criados
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% paginate request paginator page_obj %}
+
+{% endblock %}

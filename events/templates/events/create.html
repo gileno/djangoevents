@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>Novo Evento <small>informe os dados do evento</small></h1>
+</div>
+<form class="form-horizontal" action="" method="post">
+    {% include "form.html" %}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            Criar Evento
+        </button>
+    </div>
+</form>
+{% endblock %}

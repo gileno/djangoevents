@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Django Events - Nossa aplicação de Eventos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{% url home %}">Django Events</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li{% block nav_home %}{% endblock %}>
+                <a href="{% url home %}">Início</a></li>
+              <li{% block nav_events %}{% endblock %}>
+                <a href="{% url events %}">Eventos</a></li>
+              <li{% block nav_contact %}{% endblock %}>
+                <a href="{% url contact %}">Contato</a></li>
+            </ul>
+            <form class="navbar-search pull-left" 
+              action="{% url events %}" method="get">
+              <input type="text" class="search-query span2" 
+                placeholder="Pesquisar" name="search">
+            </form>
+            <ul class="nav pull-right">
+              {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" 
+                  data-toggle="dropdown">
+                  Conta ({{ user.username }}) <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url events_create %}">Criar Evento</a></li>
+                  <li><a href="{% url events_my %}">Meus Evento</a></li>
+                  <li><a href="{% url logout %}">Sair</a></li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Entrar</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url login %}">E-mail / Senha</a></li>
+                  <li><a href="{% url socialauth_begin 'facebook' %}">Facebook</a></li>
+                  <li><a href="{% url socialauth_begin 'twitter' %}">Twitter</a></li>
+                </ul>
+              </li>
+              {% endif %}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      {% block container %}{% endblock %}
+    </div>
+    <script type="text/javascript" 
+      src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" 
+      src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  </body>
+</html>

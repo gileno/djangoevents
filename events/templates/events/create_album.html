@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>{{ event }} - Criar Álbum</h1>
+</div>
+<form class="form-horizontal" action="" method="post" 
+    enctype="multipart/form-data">
+    {% include "form.html" %}
+    <h3>Fotos</h3>
+    {{ formset.management_form }}
+    {% for photo_form in formset %}
+        <hr />
+        <div class="photo-formset">
+            {% include "form.html" with form=photo_form %}
+        </div>
+    {% endfor %}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            Criar Álbum
+        </button>
+    </div>
+</form>
+{% endblock %}

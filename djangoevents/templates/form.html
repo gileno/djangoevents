@@ -1,0 +1,24 @@
+{% csrf_token %}
+{% if form.non_field_errors %}
+    <div class="alert alert-error">
+        {{ form.non_field_errors|join:", " }}
+    </div>
+{% endif %}
+{% for field in form.visible_fields %}
+    <div class="control-group{% if field.errors %} error{% endif %}">
+        <div class="control-label">
+            {{ field.label_tag }}
+        </div>
+        <div class="controls">
+            {{ field }}
+            {% if field.errors %}
+                <span class="help-block">
+                    {{ field.errors|join:", " }}
+                </span>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}

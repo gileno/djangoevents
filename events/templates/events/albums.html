@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block nav_events %} class="active"{% endblock %}
+
+{% block container %}
+<div class="page-header">
+    <h1>{{ event }} - Álbuns <small>listagem dos álbuns</small></h1>
+</div>
+<p>
+    <a href="{% url events_create_album event.pk %}" 
+        class="btn btn-success">Criar Álbum</a>
+</p>
+<ul class="thumbnails">
+    {% for album in event.album_set.all %}
+    <li class="span3">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail">
+            {% if album.primary_photo %}
+            <img src="{{ album.primary_photo.image.url }}" />
+            {% else %}
+            {{ album }}
+            {% endif %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
