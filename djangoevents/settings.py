@@ -13,12 +13,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangoevents',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_ROOT, 'djangoevents.db'),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
-        'PORT': 3306,
+        'PORT': '',
     }
 }
 

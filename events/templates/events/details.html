@@ -25,21 +25,9 @@
 <div class="page-header">
     <h1>Comentários</h1>
 </div>
-{% for comment in event.comments.all %}
-    <div>
-        <p>{{ comment.name }} disse às {{ comment.created_on }}</p>
-        <p>Facebook: {{ comment.website }}</p>
-        {{ comment.text|linebreaks }}
-    </div>
-    <hr />
-{% empty %}
-    <div class="alert alert-info">
-        Nenhum comentário foi encontrado.
-    </div>
-{% endfor %}
+<div id="comments"></div>
 <div>
-    <form class="form-horizontal" method="post" 
-        action="">
+    <form class="form-horizontal" method="post" action="">
         {% include "form.html" with form=comment_form %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">
@@ -48,4 +36,20 @@
         </div>
     </form>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+function loadComments(){
+    $.ajax({
+        'url': "{% url events_comments event.pk %}",
+        'success': function(html) {
+            $("#comments").html(html);
+        }
+    });
+}
+jQuery(function($){
+    loadComments();
+});
+</script>
 {% endblock %}

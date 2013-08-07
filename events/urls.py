@@ -6,8 +6,11 @@ from .views import EventListView, EventDetailView
 
 urlpatterns = patterns('events.views',
     url(r'^$', EventListView.as_view(), name='events'),
+    url(r'^proximos-eventos/$', 'next_events', name='next_events'),
     url(r'^(?P<pk>\d+)/$', EventDetailView.as_view(), 
         name='events_details'),
+    url(r'^(?P<pk>\d+)/comentarios/$', 'comments', 
+        name='events_comments'),
     url(r'^novo-evento/$', 'create', name='events_create'),
     url(r'^meus-eventos/$', 'my', name='events_my'),
     url(r'^(?P<pk>\d+)/alterar/$', 'edit', name='events_edit'),

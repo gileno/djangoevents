@@ -9,4 +9,32 @@
     <p>Django Events é uma aplicação de criação de Eventos.</p>
     <p><a href="{% url events %}" class="btn btn-primary btn-large">Veja os Eventos</a></p>
 </div>
+<ul id="nextEvents" class="thumbnails"></ul>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+function eventToHtml(eventModel){
+    var html = [];
+    html.push('<li class="span3 thumbnail"><div class="caption"><h3>');
+    html.push('<a href="'+eventModel.get_absolute_url+'">'+eventModel.name+'</a></h3>');
+    html.push('<p>'+eventModel.description+'</p>');
+    html.push('</div></li>');
+    return html.join('');
+}
+jQuery(function($){
+    $.ajax({
+        url: '{% url next_events %}',
+        dataType: 'json',
+        success: function(json){
+            var placeholder = $("#nextEvents");
+            for (var i = json.results.length - 1; i >= 0; i--) {
+                var eventModel = json.results[i];
+                var html = eventToHtml(eventModel);
+                placeholder.append(html);
+            };
+        }
+    });
+});
+</script>
 {% endblock %}

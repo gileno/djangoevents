@@ -1,8 +1,12 @@
 #encoding: utf-8
 
+from datetime import date
+
+import simplejson
+
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (render, get_object_or_404, 
     redirect)
@@ -14,6 +18,18 @@ from gallery.forms import AlbumForm, PhotoFormset
 
 from models import Event
 from forms import CommentForm, EventForm
+
+def next_events(request):
+    today = date.today()
+    queryset = Event.objects.all()
+    if not request.user.is_authenticated():
+        queryset = queryset.filter(public=True)
+    queryset = queryset.filter(event_date__isnull=False, event_date__gte=today)
+    queryset = queryset.order_by('event_date')
+    events = [e.to_json() for e in queryset[:3]]
+    json = simplejson.dumps({'results': events}, ensure_ascii=False)
+    return HttpResponse(json, content_type='application/json')
+
 
 class EventListView(ListView):
 
@@ -32,6 +48,7 @@ class EventListView(ListView):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
         return context
+
 
 class EventDetailView(DetailView):
 
@@ -57,8 +74,21 @@ class EventDetailView(DetailView):
             comment = form.save(commit=False)
             comment.event = self.object
             comment.save()
-            return redirect('events_details', event.pk)
+            return redirect('events_details', self.object.pk)
         return self.render_to_response(context)
+
+
+def comments(request, pk):
+    template_name = 'events/comments.html'
+    queryset = Event.objects.all()
+    if not request.user.is_authenticated():
+        queryset = queryset.filter(public=True)
+    event = get_object_or_404(queryset, pk=pk)
+    context = {
+        'event': event,
+    }
+    return render(request, template_name, context)
+
 
 @login_required
 def create(request):

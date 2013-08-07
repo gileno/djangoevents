@@ -1,0 +1,12 @@
+{% for comment in event.comments.all %}
+    <div>
+        <p>{{ comment.name }} disse às {{ comment.created_on }}</p>
+        <p>Facebook: {{ comment.website }}</p>
+        {{ comment.text|linebreaks }}
+    </div>
+    <hr />
+{% empty %}
+    <div class="alert alert-info">
+        Nenhum comentário foi encontrado.
+    </div>
+{% endfor %}

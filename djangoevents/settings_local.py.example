@@ -1,0 +1,16 @@
+#encoding: utf-8
+
+import os
+
+PROJECT_ROOT = os.path.dirname(__file__)
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+MEDIA_URL = '/media/'
+
+STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

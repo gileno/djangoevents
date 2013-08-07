@@ -1,6 +1,7 @@
 #encoding: utf-8
 
 from django.contrib.auth.models import User
+from django.utils.html import escape
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -34,6 +35,13 @@ class Event(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('events_details', (), {'pk': self.pk})
+
+    def to_json(self):
+        return {
+            'name': escape(self.name),
+            'get_absolute_url': escape(self.get_absolute_url()),
+            'description': escape(self.description)
+        }
 
     def __unicode__(self):
         return self.name
